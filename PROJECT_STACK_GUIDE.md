@@ -66,15 +66,67 @@
 *   **ECharts (4.8.0)**: 数据可视化图表库。
 *   **Mavon Editor**: Markdown 编辑器组件。
 
-## 4. 学习建议路径
+## 4. 详细学习路线规划
 
-1.  **环境搭建**: 安装 JDK 8, Maven, Node.js, MySQL, Redis。
-2.  **前端跑通**: `npm install` -> `npm run dev`，看到登录/主页。
-3.  **后端跑通**: 配置好 MySQL 连接信息，启动 Spring Boot 应用。
-4.  **功能剖析**:
-    *   从前端的一个页面（如“图书列表”）开始。
-    *   找到对应的 Vue 组件，查看 `created` 或 `mounted` 中的 API 调用。
-    *   追踪到后端的 Controller 接口。
-    *   查看 Service 业务逻辑。
-    *   查看 Mapper 数据库查询。
-5.  **攻克难点**: 深入研究 Spring Security + JWT 的登录流程，以及 ShardingSphere 的配置。
+为了系统地掌握本项目，建议按照以下**4个阶段**进行学习。
+
+### 第一阶段：基础巩固与环境搭建 (预计 3-5 天)
+**目标**：成功运行项目，理解项目结构。
+
+1.  **Java & Spring Boot 基础**
+    *   复习 Java 8 Stream 流操作和 Lambda 表达式（项目中大量使用）。
+    *   了解 Spring Boot 的启动原理和 `application.yml` 多环境配置。
+    *   *练习*：新建一个最简单的 Spring Boot Web 项目，写一个 Hello World 接口。
+2.  **Vue & Element UI 基础**
+    *   学习 Vue 2.x 的生命周期、常用指令、组件父子通信 (props/emit)。
+    *   浏览 Element UI 官网，看懂 Table 表格、Form 表单的基本用法。
+    *   *练习*：用 Vue 脚手架创建一个空项目，引入 Element UI，画一个简单的表格。
+3.  **环境配置**
+    *   本地安装 MySQL 5.7/8.0 和 Redis。
+    *   安装 Node.js (建议 v10 或 v12，因为本项目依赖较老)。
+    *   导入 SQL 脚本初始化数据库。
+    *   分别启动后端和前端，确保无报错。
+
+### 第二阶段：核心业务流程开发 (预计 5-7 天)
+**目标**：能够照猫画虎，新增一个简单的 CRUD 模块。
+
+1.  **后端开发 (MyBatis + Service + Controller)**
+    *   **MyBatis**: 学习 Mapper XML 文件的编写，特别是 ResultMap 和 SQL 标签。
+    *   **Service**: 理解业务逻辑层，如何调用 Mapper。
+    *   **Controller**: 学习 `@RequestBody`, `@RequestParam`, `@PathVariable` 的区别。
+    *   *任务*：尝试修改一个现有接口的返回值，观察前端变化。
+2.  **前端开发 (Axios + Vue Components)**
+    *   **Axios 封装**: 深入阅读 `src/utils/request.js` (假设路径)，理解 request/response 拦截器。
+    *   **接口调用**: 学习如何在 `.vue` 文件中引入 API 方法并调用。
+    *   **页面开发**: 模仿现有的“图书管理”页面，复制一份代码，改为“作者管理”（举例）。
+3.  **前后端联调**
+    *   打开浏览器的 Network 面板，观察 HTTP 请求的 URL、Header 和 Body。
+    *   学会看后端控制台的 Log 报错信息。
+
+### 第三阶段：安全认证与权限控制 (预计 3-4 天)
+**目标**：理解系统是如何登录的，权限是如何控制的。
+
+1.  **Spring Security 原理**
+    *   不需要精通所有细节，但要理解 Filter Chain (过滤器链)。
+    *   找到项目中的 Security 配置类（通常继承 `WebSecurityConfigurerAdapter`）。
+2.  **JWT 实战**
+    *   追踪“登录”接口 (`/login`) 的代码，看 Token 是如何生成的。
+    *   追踪“JWT 过滤器”的代码，看每个请求是如何解析 Token 并验证身份的。
+    *   *思考*：如果 Token 过期了，系统是如何处理的？
+3.  **前端权限控制**
+    *   查看 `src/router/index.js` 中的 `beforeEach` 钩子，理解前端是如何拦截未登录用户的。
+    *   查看 Vuex 中的 `user` 模块，理解用户信息是如何存储的。
+
+### 第四阶段：高阶特性与难点攻克 (预计 3-5 天)
+**目标**：掌握项目的技术亮点 (ShardingSphere, Redis)。
+
+1.  **ShardingSphere 分库分表**
+    *   这是本项目的难点。阅读 `pom.xml` 和 `application.yml` 中的 sharding 配置。
+    *   理解什么是“逻辑表”和“真实表”。
+    *   *验证*：向数据库插入数据，观察数据到底落入了哪个实际的表中。
+2.  **Redis 缓存**
+    *   搜索代码中的 `RedisTemplate` 或 `@Cacheable` 注解。
+    *   理解缓存的使用场景：通常用于字典数据、Token 存储或高频查询。
+
+### 总结
+建议采用**“自顶向下”**的方法：先看页面效果 -> 再看前端代码 -> 抓包看网络请求 -> 最后看后端接口与数据库。遇到不懂的语法或注解，及时查阅官方文档。
