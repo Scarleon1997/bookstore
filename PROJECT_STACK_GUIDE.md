@@ -128,5 +128,54 @@
     *   搜索代码中的 `RedisTemplate` 或 `@Cacheable` 注解。
     *   理解缓存的使用场景：通常用于字典数据、Token 存储或高频查询。
 
+## 5. 知识点深度分解 (Deep Dive)
+
+针对上述技术栈，这里提供更颗粒度的知识点清单，方便查漏补缺。
+
+### 5.1 Java 8 关键特性
+*   **Lambda**: 语法 `() -> {}`，函数式接口 (`@FunctionalInterface`)。
+*   **Stream API**:
+    *   创建: `list.stream()`, `Arrays.stream()`
+    *   中间操作: `filter` (过滤), `map` (转换), `sorted` (排序)
+    *   终端操作: `collect(Collectors.toList())`, `forEach`, `count`
+*   **Optional**: 避免空指针异常 (`ofNullable`, `orElse`, `isPresent`)。
+
+### 5.2 Spring Boot 注解速查
+*   **核心**: `@SpringBootApplication`
+*   **Web 层**: `@RestController`, `@RequestMapping`, `@GetMapping`, `@PostMapping`
+*   **参数接收**: `@RequestBody` (JSON), `@RequestParam` (Query String), `@PathVariable` (URL path)
+*   **容器管理**: `@Component`, `@Service`, `@Repository`, `@Autowired` (或 `@Resource`)
+*   **配置**: `@Configuration`, `@Bean`, `@Value` (读取 yml)
+
+### 5.3 Vue.js 核心细节
+*   **指令**:
+    *   `v-if` vs `v-show` (性能区别)
+    *   `v-for` (必须加 `:key`)
+    *   `v-model` (双向绑定原理)
+    *   `@click` / `@change` (事件监听)
+*   **修饰符**: `.prevent` (阻止默认行为), `.stop` (阻止冒泡)
+*   **组件通信**:
+    *   父传子: `props`
+    *   子传父: `this.$emit('event-name', data)`
+    *   跨组件: Vuex
+
+### 5.4 MySQL 优化基础
+*   **索引**: 知道什么是 B+Tree，主键索引 vs 辅助索引。
+*   **事务**: ACID 特性，事务隔离级别（脏读、幻读）。
+*   **SQL 调优**: 避免 `select *`，使用 `explain` 查看执行计划。
+
+### 5.5 网络与调试
+*   **HTTP 方法**: GET (查), POST (增), PUT (改), DELETE (删)。
+*   **状态码**:
+    *   `200`: 成功
+    *   `400`: 参数错误
+    *   `401`: 未认证 (Token 无效)
+    *   `403`: 无权限
+    *   `500`: 服务器内部错误
+*   **Chrome DevTools**:
+    *   `Network`: 查看请求头 `Authorization` 是否携带 Token。
+    *   `Console`: 查看 JS 报错。
+    *   `Vue Devtools`: 查看组件数据和 Vuex 状态（强烈推荐安装插件）。
+
 ### 总结
 建议采用**“自顶向下”**的方法：先看页面效果 -> 再看前端代码 -> 抓包看网络请求 -> 最后看后端接口与数据库。遇到不懂的语法或注解，及时查阅官方文档。
