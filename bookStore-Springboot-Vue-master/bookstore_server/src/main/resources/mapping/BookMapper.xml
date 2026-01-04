@@ -236,10 +236,15 @@
             where id in (select t.bookId from
                 (select * from booksortlist
                     <where>
-                        bookSortId in
-                        <foreach collection="list" item="item" separator="," open="(" close=")" index="">
-                            #{item}
-                        </foreach>
+                        <if test="list != null and list.size() > 0">
+                            bookSortId in
+                            <foreach collection="list" item="item" separator="," open="(" close=")" index="">
+                                #{item}
+                            </foreach>
+                        </if>
+                        <if test="list == null or list.size() == 0">
+                            1 = 0
+                        </if>
                     </where>
                 )
         as t ) limit #{page},#{pageSize}
@@ -255,10 +260,15 @@
         select count(*) from book
         where id in (select bookId from booksortlist
         <where>
-            bookSortId in
-            <foreach collection="list" item="item" separator="," open="(" close=")" index="">
-                #{item}
-            </foreach>
+            <if test="list != null and list.size() > 0">
+                bookSortId in
+                <foreach collection="list" item="item" separator="," open="(" close=")" index="">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="list == null or list.size() == 0">
+                1 = 0
+            </if>
         </where>
         )
     </select>

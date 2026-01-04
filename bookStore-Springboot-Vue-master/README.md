@@ -45,7 +45,37 @@
 * 实现秒杀功能
 * 将项目进行微服务化（使用SpringCloudAlibaba）
 
+### 1.5 快速开始 (Getting Started)
 
+#### 数据库配置 (Database Configuration)
+本项目需要 MySQL 数据库。请在本地安装 MySQL 并创建一个名为 `bookstore` 的数据库。
+然后，导入项目根目录下的 `schema.sql` 文件以创建必要的表结构。
+
+```sql
+CREATE DATABASE bookstore;
+USE bookstore;
+SOURCE /path/to/schema.sql;
+```
+
+#### 配置文件 (Configuration)
+修改 `bookstore_server/src/main/resources/application.yml` 或 `application-dev.yml` 中的数据库连接信息（用户名和密码）。
+如果本地没有 Redis 环境，请注释掉 Redis 相关配置或安装 Redis。
+
+#### 启动项目 (Running the Project)
+可以使用提供的 `setup.sh` 脚本来安装依赖并编译项目（Linux/Mac）。
+
+**后端启动:**
+```bash
+cd bookstore_server
+mvn spring-boot:run
+```
+
+**前端启动:**
+```bash
+cd bookstore_client
+npm install --legacy-peer-deps
+npm run dev
+```
 
 ### 2、功能模块
 
