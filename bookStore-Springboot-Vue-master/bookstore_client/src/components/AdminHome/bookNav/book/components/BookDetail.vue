@@ -119,6 +119,7 @@
     import {reqGetPublishNames} from "../../../../../api/publish";
     import {reqGetSortList} from "../../../../../api/sort";
     import {reqAddBook,reqGetBookImgPathList,reqGetBook,reqDelBookImg,reqModifyBook} from "../../../../../api/book";
+    import book from "../../../../../pages/Book/Book.vue";
     export default {
         name: "BookDetail",
         props:{
@@ -290,7 +291,12 @@
                         }
                     })
                 }else {
+                    this.book.id = this.$route.query.id;
                     reqModifyBook(this.book).then(response=>{
+
+                      console.log("当前 book 对象全貌:", JSON.stringify(this.book));
+                      console.log("准备提交的 ID 值:", this.book.id);
+                      // ... 原有逻辑
                         if(response.code==200){
                             this.$message({
                                 type: 'success',
@@ -398,12 +404,17 @@
             this.getSortList();
             this.initMyHeader();
             if(this.isEdit){
-                let id = this.$route.query.id;
+                // let id = this.$route.query.id;
+                console.log("id:"+id);
                 reqGetBook(id).then(response=>{
+                  console.log("this book"+this.book);
+                    this.book = { ...this.book, ...response.book };
+                  console.log("updated this book"+this.book);
+
                     console.log(response.book);
                     console.log(response.upperId);
                     console.log(response.childId);
-                    this.book = response.book;
+                    // this.book = response.book;
                     this.book.bookSort = [];
                     this.book.bookSort.push(response.upperId);
                     this.book.bookSort.push(response.childId);

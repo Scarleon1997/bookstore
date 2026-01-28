@@ -1,4 +1,4 @@
-<!--书籍详情页面-->
+  <!--书籍详情页面-->
 <template>
   <div class="content">
     <Nav></Nav>

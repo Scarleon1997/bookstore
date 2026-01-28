@@ -4,9 +4,10 @@
 
 <script>
   import BookDetail from "./components/BookDetail";
+  import BookList from "./BookList.vue";
     export default {
         name: "UpdateBook",
-        components: {BookDetail}
+        components: {BookDetail, BookList}
     }
 </script>
 

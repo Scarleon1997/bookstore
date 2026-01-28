@@ -4,7 +4,8 @@
 
     <!--这些是对book表的查询-->
     <insert id="addBook" parameterType="com.xu.store.entity.book.Book">
-        insert into book(author,`rank`,bookName,isbn,publish,birthday,marketPrice,price,stock,description,put,newProduct,recommend)
+        insert into
+            book(author,`rank`,bookName,isbn,publish,birthday,marketPrice,price,stock,description,`put`,newProduct,recommend)
         values (#{author},#{rank},#{bookName},#{isbn},#{publish},#{birthday},#{marketPrice},#{price},#{stock},#{description},#{put},#{newProduct},#{recommend})
     </insert>
 
@@ -26,8 +27,8 @@
                 price=#{price},
                 stock=#{stock},
                 description=#{description},
-                put=#{put},
-                rank=#{rank},
+                `put`=#{put},
+                `rank`=#{rank},
                 newProduct=#{newProduct},
                 recommend=#{recommend},
                 isbn=#{isbn}
@@ -36,7 +37,7 @@
 
     <update id="modifyBookPut">
         update book
-            set put=#{put}
+            set `put`=#{put}
                 where id=#{id}
     </update>
 
@@ -161,11 +162,11 @@
     </delete>
 
     <update id="modifyRecommendRank">
-        update recommend set rank=#{rank} where bookId=#{bookId}
+        update recommend set `rank`=#{rank} where bookId=#{bookId}
     </update>
 
     <update id="modifyRecommend" parameterType="com.xu.store.entity.book.Recommend">
-        update recommend set rank=#{rank},
+        update recommend set `rank`=#{rank},
                              bookId=#{bookId},
                              addTime=#{addTime}
                             where id=#{id}
@@ -192,11 +193,11 @@
     </delete>
 
     <update id="modifyNewProductRank">
-        update newproduct set rank=#{rank} where bookId=#{bookId}
+        update newproduct set `rank`=#{rank} where bookId=#{bookId}
     </update>
 
     <update id="modifyNewProduct" parameterType="com.xu.store.entity.book.Recommend">
-        update newproduct set rank=#{rank},
+        update newproduct set `rank`=#{rank},
                              bookId=#{bookId},
                              addTime=#{addTime}
                             where id=#{id}
@@ -237,9 +238,9 @@
                 (select * from booksortlist
                     <where>
                         bookSortId in
-                        <foreach collection="list" item="item" separator="," open="(" close=")" index="">
+                        <foreach collection="list" item="item" separator="," open="(" close=")" index=""> --
                             #{item}
-                        </foreach>
+                        </foreach>con
                     </where>
                 )
         as t ) limit #{page},#{pageSize}
@@ -247,7 +248,11 @@
 
     <select id="getBookBySecond" resultType="com.xu.store.entity.book.Book">
         select * from book
-            where id in (select t.bookId from (select * from booksortlist where bookSortId=#{bookSortId})as t )limit #{page},#{pageSize}
+            where id in
+                  (select t.bookId from
+                                       (select * from booksortlist
+                                                 where bookSortId=#{bookSortId}) as t )
+                limit #{page},#{pageSize}
     </select>
 
 

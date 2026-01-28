@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="content">
-      <p>© 2020 南昌大学软件学院 许瑞仕 版权所有</p>
+      <p>2025 广东白云学院 许瑞仕</p>
     </div>
   </div>
 </template>

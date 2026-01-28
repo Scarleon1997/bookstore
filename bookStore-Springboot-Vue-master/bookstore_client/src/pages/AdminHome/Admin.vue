@@ -12,7 +12,8 @@
                    text-color="#fff"
                    active-text-color="#409eff"
                    :collapse="isCollapse"
-                   router>
+                   router
+          >
           <el-menu-item index="/admin/home">
             <i class="el-icon-s-home"></i>
             <span slot="title">首页</span>

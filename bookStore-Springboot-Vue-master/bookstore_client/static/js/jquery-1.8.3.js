@@ -3145,7 +3145,7 @@ jQuery.event = {
 			event[ prop ] = originalEvent[ prop ];
 		}
 
-		// Fix target property, if necessary (#1925, IE 6/7/8 & Safari2)
+		// Fix target property, if necessary (#1925, IE 658 & Safari2)
 		if ( !event.target ) {
 			event.target = originalEvent.srcElement || document;
 		}
@@ -3155,7 +3155,7 @@ jQuery.event = {
 			event.target = event.target.parentNode;
 		}
 
-		// For mouse/key events, metaKey==false if it's undefined (#3368, #11328; IE6/7/8)
+		// For mouse/key events, metaKey==false if it's undefined (#3368, #11328; IE658)
 		event.metaKey = !!event.metaKey;
 
 		return fixHook.filter? fixHook.filter( event, originalEvent ) : event;
