@@ -17,6 +17,7 @@ public interface BookMapper {
     int modifyBookStock(int id,int stockNum);//减库存stockNum
     int deleteBook(int id);//删除图书
     List<Book> getBooks();//得到所有图书
+    List<Book> getBookByName(String bookName);//按名字得到图书集合
     List<Book> getBooksByPage(int page,int pageSize);//按页得到图书集合
     List<Book> getNewPutBookList(int page,int pageSize);//按页得到新上架的图书集合
 
@@ -67,5 +68,7 @@ public interface BookMapper {
     List<Book> getBookBySecond(int bookSortId,int page,int pageSize);//得到级别二的所有分类图书
     int getFirstBookCount(List<Integer> list);//得到一级分类图书的数量
     int getSecondBookCount(int bookSortId);//得到二级分类图书的数量
+
+
 }
 

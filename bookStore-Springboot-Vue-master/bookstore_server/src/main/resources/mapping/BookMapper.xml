@@ -2,12 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xu.store.mapper.BookMapper">
 
-    <!--这些是对book表的查询-->
+    <!--这些是对book表的操作-->
     <insert id="addBook" parameterType="com.xu.store.entity.book.Book">
         insert into
             book(author,`rank`,bookName,isbn,publish,birthday,marketPrice,price,stock,description,`put`,newProduct,recommend)
         values (#{author},#{rank},#{bookName},#{isbn},#{publish},#{birthday},#{marketPrice},#{price},#{stock},#{description},#{put},#{newProduct},#{recommend})
     </insert>
+
+    <select id="getBookByName" resultType="com.xu.store.entity.book.Book">
+        SELECT *
+        FROM book
+        WHERE bookName
+                  LIKE '%'#{name}'%'
+    </select>
 
     <delete id="deleteBook">
         delete book,newproduct,recommend,booksortlist from book
@@ -207,6 +214,8 @@
         select count(*) from newproduct where bookId=#{bookId}
     </select>
 
+
+
     <select id="getNewProductsByPage" resultType="com.xu.store.entity.book.Book">
          select * from book where id in
          (select t.bookId from (select * from newproduct limit #{page},#{pageSize})as t )
@@ -240,7 +249,7 @@
                         bookSortId in
                         <foreach collection="list" item="item" separator="," open="(" close=")" index=""> --
                             #{item}
-                        </foreach>con
+                        </foreach>
                     </where>
                 )
         as t ) limit #{page},#{pageSize}

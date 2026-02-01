@@ -140,6 +140,11 @@ public class BookServiceImp implements BookService {
     }
 
     @Override
+    public List<Book> getBookByName(String bookName) {
+        return bookMapper.getBookByName(bookName);
+    }
+
+    @Override
     public List<Book> getBooksByPage(int page, int pageSize) {
         int start = (page-1)*pageSize;
 //        if(redisTemplate.hasKey(bookList_prefix)){
